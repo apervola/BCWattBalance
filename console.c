@@ -69,26 +69,23 @@ int CMD_help(int argc, char **argv){
 	 * Leave blank line after the help table
 	 */
 
-	UARTprintf("\n");
-	UARTprintf(">");
+	UARTprintf("\n>");
 
-	return (0);
+	return 0;
 }
 
 int CMD_laserAon(int argc, char **argv){
 
 	enableLaserA();
-	UARTprintf("\n");
-	UARTprintf(">");
+	UARTprintf("\n>");
 
-	return(0);
+	return 0;
 }
 
 int CMD_laserAoff(int argc, char **argv){
 
 	disableLaserA();
-	UARTprintf("\n");
-	UARTprintf(">");
+	UARTprintf("\n>");
 
 	return 0;
 }
@@ -96,8 +93,7 @@ int CMD_laserAoff(int argc, char **argv){
 int CMD_laserBon(int argc, char **argv){
 
 	enableLaserB();
-	UARTprintf("\n");
-	UARTprintf(">");
+	UARTprintf("\n>");
 
 	return 0;
 }
@@ -105,8 +101,7 @@ int CMD_laserBon(int argc, char **argv){
 int CMD_laserBoff(int argc, char **argv){
 
 	disableLaserB();
-	UARTprintf("\n");
-	UARTprintf(">");
+	UARTprintf("\n>");
 
 	return 0;
 }
@@ -115,8 +110,7 @@ int CMD_shutdown(int argc, char **argv){
 
 	disableLaserA();
 	disableLaserB();
-	UARTprintf("\n");
-	UARTprintf(">");
+	UARTprintf("\n>");
 
-	return(0);
+	return 0;
 }
