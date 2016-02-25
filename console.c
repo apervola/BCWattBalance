@@ -1,6 +1,7 @@
 /*
  * console.c
  * Console function declarations
+ * Command definitions
  *
  */
 
@@ -16,10 +17,10 @@
 
 /*****************************************************************************
  *
- * Table of valid command strings, functions calls, and help descriptions.
- * This format (array name and type) is specified and used by
- * the Command Line Processor to parse and call commands. A command can have
- * a maximum of 8 arguments.
+ * Structure of valid command strings, functions calls, and help descriptions.
+ * This format is specified and used by the Command Line Processor to parse
+ * and call commands. A command can have a maximum of 8 arguments. The structure
+ * must be terminated by a null entry.
  *
  *****************************************************************************/
 
@@ -35,7 +36,6 @@ tCmdLineEntry g_psCmdTable[] =
 };
 
 
-
 /*
  * Command: help
  * Print the help strings for all commands.
@@ -43,32 +43,32 @@ tCmdLineEntry g_psCmdTable[] =
 
 int CMD_help(int argc, char **argv){
 
-	int32_t i32Index;
+	int32_t cmdIndex; //index for the beginning of the command array
 
-	//
-	// Start at the beginning of the command table
-	//
+	cmdIndex = 0;
 
-	i32Index = 0;
+	/*
+	 * Print a newline and begin formatted output for help table
+	 */
 
-	//
-	// Get to the start of a clean line on the serial output.
-	//
 	UARTprintf("\nAvailable Commands\n------------------\n\n");
 
-	//
-	// Display strings until we run out of them.
-	//
-	while(g_psCmdTable[i32Index].pcCmd)
+	/*
+	 * Display a formatted table of the command array with descriptions
+	 * A 'help' table
+	 */
+
+	while(g_psCmdTable[cmdIndex].pcCmd)
 	{
-		UARTprintf("%17s %s\n", g_psCmdTable[i32Index].pcCmd,
-				g_psCmdTable[i32Index].pcHelp);
-		i32Index++;
+		UARTprintf("%17s %s\n", g_psCmdTable[cmdIndex].pcCmd,
+				g_psCmdTable[cmdIndex].pcHelp);
+		cmdIndex++;
 	}
 
-	//
-	// Leave a blank line after the help strings.
-	//
+	/*
+	 * Leave blank line after the help table
+	 */
+
 	UARTprintf("\n");
 	UARTprintf(">");
 

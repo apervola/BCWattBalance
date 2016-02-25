@@ -75,7 +75,7 @@ int main(void){
 
 	while(1){
 
-		/*
+		/*help
 		 * Commandline input routine from UART
 		 */
 
