@@ -60,6 +60,8 @@
 #include "console.h"
 #include "util/cmdline.h"
 #include "util/uartstdio.h"
+#include "driverlib/pwm.h"
+#include "driverlib/pin_map.h"
 
 /*
  * Input buffer for the command line interpreter.
@@ -107,4 +109,5 @@ int main(void){
 		}
 
 	}
+
 }

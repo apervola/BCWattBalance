@@ -30,11 +30,20 @@ tCmdLineEntry g_psCmdTable[] =
 		{"laserBon" ,      CMD_laserBon,        " : Turn on Laser B"	},
 		{"laserAoff",      CMD_laserAoff,       " : Turn off Laser A"	},
 		{"laserBoff",	   CMD_laserBoff, 		" : Turn off Laser B"	},
+		{"coilAon"	,	   CMD_coilAon, 		" : Turn on Coil A"		},
+		{"coilBon",	   	   CMD_coilBon, 		" : Turn on Coil B"		},
+		{"coilAoff",	   CMD_coilAoff, 		" : Turn off Coil A"	},
+		{"coilBoff",	   CMD_coilBoff, 		" : Turn off Coil B"	},
+		{"pwmON",          CMD_signalPWM,       " : Activate PWM"		},
+		{"pwmOFF",         CMD_PWMoff,      	" : Stop PWM"			},
+		{"coilRelayOn",    CMD_coilRelayOn,     " : Coil Relay ON"  	},
+		{"coilRelayOff",   CMD_coilRelayOff,    " : Coil Relay OFF"		},
+		{"senseRelayOn",   CMD_senseRelayOn,    " : Sense Relay ON"		},
+		{"senseRelayOff",  CMD_senseRelayOff,   " : Sense Relay OFF"	},
 		{"help",       	   CMD_help,       		" : Help Table"			},
 		{"shutdown",       CMD_shutdown,       	" : Shutdown"			},
 		{ 0, 0, 0 }
 };
-
 
 /*
  * Command: help
@@ -106,10 +115,96 @@ int CMD_laserBoff(int argc, char **argv){
 	return 0;
 }
 
+int CMD_coilAon(int argc, char **argv){
+
+	enableCoilA();
+	UARTprintf("\n>");
+
+	return 0;
+}
+int CMD_coilBon(int argc, char **argv){
+
+	enableCoilB();
+	UARTprintf("\n>");
+
+	return 0;
+}
+int CMD_coilAoff(int argc, char **argv){
+
+	disableCoilA();
+	UARTprintf("\n>");
+
+	return 0;
+}
+int CMD_coilBoff(int argc, char **argv){
+
+	disableCoilB();
+	UARTprintf("\n>");
+
+	return 0;
+}
+
 int CMD_shutdown(int argc, char **argv){
 
 	disableLaserA();
 	disableLaserB();
+	disableCoilA();
+	disableCoilB();
+	PWMoff();
+	coilRelayDisable();
+	senseRelayDisable();
+	UARTprintf("All outputs disabled. \n>");
+
+	return 0;
+}
+
+int CMD_signalPWM(int argc, char **argv){
+
+	UARTprintf("Argument [1][0] is: %c\n>",argv[1]);
+	int percent = atoi(argv[1]);
+	UARTprintf("Percent is: %d\n>",percent);
+	signalPWM(percent);
+	UARTprintf("\n>");
+
+	return 0;
+}
+
+int CMD_PWMoff(int argc, char **argv){
+
+	PWMoff();
+	UARTprintf("\n>");
+
+	return 0;
+}
+
+int CMD_coilRelayOn(int argc, char **argv){
+
+	coilRelayEnable();
+	UARTprintf("\n>");
+
+	return 0;
+}
+
+int CMD_coilRelayOff(int argc, char **argv){
+
+	coilRelayDisable();
+	UARTprintf("\n>");
+
+	return 0;
+}
+
+int CMD_senseRelayOn(int argc, char **argv){
+
+	senseRelayEnable();
+	UARTprintf("\n>");
+
+	return 0;
+
+}
+
+int CMD_senseRelayOff(int argc, char **argv){
+
+	senseRelayDisable();
 	UARTprintf("\n>");
 
 	return 0;

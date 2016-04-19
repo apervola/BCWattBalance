@@ -17,6 +17,7 @@ board_init.obj: ../control.h
 board_init.obj: ../util/cmdline.h
 board_init.obj: ../util/uartstdio.h
 board_init.obj: C:/ti/ccsv6/tools/compiler/ti-cgt-arm_5.2.7/include/stdarg.h
+board_init.obj: C:/ti/TivaWare_C_Series-2.1.2.111/driverlib/pwm.h
 
 ../board_init.c: 
 C:/ti/ccsv6/tools/compiler/ti-cgt-arm_5.2.7/include/stdint.h: 
@@ -35,3 +36,4 @@ C:/ti/TivaWare_C_Series-2.1.2.111/driverlib/uart.h:
 ../util/cmdline.h: 
 ../util/uartstdio.h: 
 C:/ti/ccsv6/tools/compiler/ti-cgt-arm_5.2.7/include/stdarg.h: 
+C:/ti/TivaWare_C_Series-2.1.2.111/driverlib/pwm.h: 
