@@ -1,68 +1,67 @@
 #include <stdio.h>
+#include <math.h>
 
 #define M_PI 3.14159265358979323846
+#define HALF_PI (M_PI/2)
 
-void sine_table();
-float iter_table(int quadrant);
+void generateSineTable();
+float increment();
 
-int main(int argc, char *argv[]) {
-	double ar[256];
-	double half_PI = (M_PI/2);	// 1.57079632679
-	int count = 0;
-	int quadrant = 1;			// placeholder for global var
-	double * p = ar;			// pointer to sine table
+static double sineTable[256];
+static int quadrant = 1;
+static double *p = sineTable;			// pointer to sine table
 
-	return 0;
-}	
-void sine_table() {
+void generateSineTable() {
 	int i;
 	for(i=0; i <= 256; i++) {
-		ar[i] = (half_PI*i/256);
-//		printf("%f = %.2f\n", ar[i], (ar[i]/half_PI)*100);
+		sineTable[i] = sin(i * HALF_PI / 256);
+
+	}
+//		printf("%f = %.2f\n", sineTable[i], (sineTable[i]/HALF_PI)*100);
 }
 
-float iter_table(int quadrant) {
+float increment() {
 	switch(quadrant) {
 		case 1:
 			if (p <= 256) 
 				p++;
-			percent = (((*p)/half_PI)*100);	
-			signal_pwm(percent);	
+			percent = (((*p)/HALF_PI)*100);
+			signal_pwm(percent);
 			break;
 		case 2:
 			if (p >= 0)
 				p--;
-			percent = (((*p)/half_PI)*100);	
+			percent = (((*p)/HALF_PI)*100);
 			signal_pwm(percent);	
 			break;
 		case 3:
-			*p = ar[0];
+			*p = sineTable[0];
 			int a;
 			for(a = 1; a <= 256; a++) {
-				ar[a] = -(ar[a]);
+				sineTable[a] = -(sineTable[a]);
 				p++;
 			}
-			percent = (((*p)/half_PI)*100);
+			percent = (((*p)/HALF_PI)*100);
 			signal_pwm(percent);	
 			break;
 		case 4:
 			if (p >= 0)
 				p--;	
-			percent = (*p)/half_PI*100;
+			percent = (*p)/HALF_PI*100;
 			signal_pwm(percent);	
 			break;
 	}
 }
 
 //	for(int j=0;j<=256;j++) {
-//		printf("%20.18lf\n", ar[j]);
+//		printf("%20.18lf\n", sineTable[j]);
 //	}
 
 /*	for(int i = 0; i < x; i++) {
 		for(int j = 0; j < y; j++) {
 			if(count > 257)
 				break;	
-			table[i][j] = ar[count];  
+			table[i][j] = sineTable[count];
 			count++;
 		}
 	}

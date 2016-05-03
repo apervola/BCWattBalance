@@ -49,6 +49,8 @@
 
  ******************************************************************************/
 
+#include <stdlib.h>
+#include <stdio.h>
 #include <stdint.h>
 #include <stdbool.h>
 #include "inc/hw_types.h"
@@ -96,7 +98,7 @@ int main(void){
 
 	while(1){
 
-		/*help
+		/*
 		 * Commandline input routine from UART
 		 */
 
@@ -133,6 +135,11 @@ int main(void){
 
 }
 
+/*
+ * Initialize Timer0 to 80 MHz * 1.5 sec / 1024 segments in sine_table
+ * NOTE: Does NOT start timer
+ */
+
 void initClock(void)
 {
 	SysCtlPeripheralEnable(SYSCTL_PERIPH_TIMER0);
@@ -145,26 +152,36 @@ void initClock(void)
 	TimerIntEnable(TIMER0_BASE, TIMER_TIMA_TIMEOUT);
 }
 
+/*
+ * Test the RUNNING flag to determine if the
+ * timer should be reset
+ */
+
 int continueRunning(void)
 {
 
 	if(!RUNNING)
 	{
-		return (true);
+		return (false);
 	}
 
 	uint32_t ui32Period = SysCtlClockGet() * 1.5 / 1024;
 	TimerLoadSet(TIMER0_BASE,TIMER_A,ui32Period-1);
 	TimerEnable(TIMER0_BASE, TIMER_A);
 
-	return (false);
+	return (true);
 }
+
+/*
+ * The interrupt handler for the timer interrupt.
+ * Moves forward in the sine table.
+ */
 
 void clockInterrupt(void)
 {
 	TimerIntClear(TIMER0_BASE, TIMER_TIMA_TIMEOUT);
 
-	if(continueRunning()) return;
+	if(!continueRunning()) return;
 
 	static int busy=false;                 /* last interrupt request not        */
 		                                   /* completely served                 */

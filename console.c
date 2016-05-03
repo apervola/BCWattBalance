@@ -5,6 +5,7 @@
  *
  */
 
+#include <stdlib.h>
 #include <stdint.h>
 #include <stdbool.h>
 #include "inc/hw_types.h"
@@ -160,9 +161,9 @@ int CMD_shutdown(int argc, char **argv){
 
 int CMD_signalPWM(int argc, char **argv){
 
-	UARTprintf("Argument [1][0] is: %c\n>",argv[1]);
+	UARTprintf("Argument [1][0] is: %s\n>", argv[1]);
 	int percent = atoi(argv[1]);
-	UARTprintf("Percent is: %d\n>",percent);
+	UARTprintf("Percent is: %d\n>", percent);
 	signalPWM(percent);
 	UARTprintf("\n>");
 
