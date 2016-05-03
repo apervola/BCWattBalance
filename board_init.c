@@ -17,6 +17,7 @@
 #include "util/uartstdio.h"
 #include "driverlib/pwm.h"
 #include "driverlib/pin_map.h"
+#include "driverlib/interrupt.h"
 
 /******************************************************************************
 
@@ -26,28 +27,56 @@
 
  *******************************************************************************/
 
+void systemInit(){
+	
+	/*
+	 * CPU clock speed initialization
+	 */
+	// Setup the system clock to run at 80 Mhz from PLL with crystal reference
+	SysCtlClockSet(SYSCTL_SYSDIV_2_5|SYSCTL_USE_PLL|SYSCTL_XTAL_16MHZ|SYSCTL_OSC_MAIN);
+	
+	/*
+	 * UART initialization
+	 */
+	// Enable and configure the GPIO port A for laser control and UART
+	SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOA);
+	SysCtlPeripheralEnable(SYSCTL_PERIPH_UART0);
+
+	// Configure pins 0 and 1
+	GPIOPinConfigure(GPIO_PA0_U0RX);
+	GPIOPinConfigure(GPIO_PA1_U0TX);
+	GPIOPinTypeUART(GPIO_PORTA_BASE, GPIO_PIN_0 | GPIO_PIN_1);
+
+	// Use the system clock for the UART clock speed
+	UARTClockSourceSet(UART0_BASE, UART_CLOCK_SYSTEM);
+
+	// Enable terminal I/O
+	UARTStdioConfig(0, 115200, SysCtlClockGet());
+
+	// Test the setup
+	UARTprintf("UART initialized.\n");
+
+	/*
+	 * Enable all interrupts
+	 */
+	IntMasterEnable();
+}
+
 void board_INIT(){
 
 	volatile uint32_t ui32Period;
 	volatile uint32_t ui32PWMClock;
 
 	/*
-	 * Setup the system clock to run at 40 Mhz from PLL with crystal reference
 	 * Setup PWM Clock to run at 625KHZ
 	 */
 
-	SysCtlClockSet(SYSCTL_SYSDIV_5|SYSCTL_USE_PLL|SYSCTL_OSC_MAIN|SYSCTL_XTAL_16MHZ);
 	SysCtlPWMClockSet(SYSCTL_PWMDIV_64);
 
 	/*
-	 * Enable and configure the GPIO port A for laser control and UART
 	 * Enable and configure GPIO port E for coil driver control
 	 * Enable and configure GPIO port D for PWM output
 	 */
-
-	SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOA);
-
-	ConfigureUART(); //Port A must be enabled first !
 
 	SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOD);
 	SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOE);
@@ -164,6 +193,4 @@ void ConfigureUART(void){
 
 
 }
-
-
 
