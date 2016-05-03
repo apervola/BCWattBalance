@@ -10,12 +10,13 @@ int main(int argc, char *argv[]) {
 	double half_PI = (M_PI/2);	// 1.57079632679
 	int count = 0;
 	int quadrant = 1;			// placeholder for global var
-	int * p = ar[0];			// pointer to sine table
+	double * p = ar;			// pointer to sine table
 
 	return 0;
 }	
 void sine_table() {
-	for(int i=0;i<=256;i++) {
+	int i;
+	for(i=0; i <= 256; i++) {
 		ar[i] = (half_PI*i/256);
 //		printf("%f = %.2f\n", ar[i], (ar[i]/half_PI)*100);
 }
@@ -36,7 +37,8 @@ float iter_table(int quadrant) {
 			break;
 		case 3:
 			*p = ar[0];
-			for(int a = 1; a <= 256; a++) {
+			int a;
+			for(a = 1; a <= 256; a++) {
 				ar[a] = -(ar[a]);
 				p++;
 			}
@@ -46,7 +48,7 @@ float iter_table(int quadrant) {
 		case 4:
 			if (p >= 0)
 				p--;	
-			percent = (((*p)/half_PI*100);
+			percent = (*p)/half_PI*100;
 			signal_pwm(percent);	
 			break;
 	}

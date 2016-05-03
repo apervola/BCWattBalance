@@ -14,6 +14,7 @@
  */
 
 extern void board_INIT();
+extern void systemInit();
 
 /*
  * Declare Laser Control Functions
