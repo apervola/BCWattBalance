@@ -31,6 +31,13 @@ main.obj: ../main.c $(GEN_OPTS) $(GEN_HDRS)
 	@echo 'Finished building: $<'
 	@echo ' '
 
+sine_table.obj: ../sine_table.c $(GEN_OPTS) $(GEN_HDRS)
+	@echo 'Building file: $<'
+	@echo 'Invoking: ARM Compiler'
+	"C:/ti/ccsv6/tools/compiler/ti-cgt-arm_5.2.7/bin/armcl" -mv7M4 --code_state=16 --float_support=FPv4SPD16 --abi=eabi -me -O2 --include_path="C:/ti/ccsv6/tools/compiler/ti-cgt-arm_5.2.7/include" --gcc --define=ccs="ccs" --define=PART_TM4C123GE6PM --diag_wrap=off --display_error_number --diag_warning=225 --preproc_with_compile --preproc_dependency="sine_table.pp" $(GEN_OPTS__FLAG) "$<"
+	@echo 'Finished building: $<'
+	@echo ' '
+
 tm4c123ge6pm_startup_ccs.obj: ../tm4c123ge6pm_startup_ccs.c $(GEN_OPTS) $(GEN_HDRS)
 	@echo 'Building file: $<'
 	@echo 'Invoking: ARM Compiler'

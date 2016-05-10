@@ -14,11 +14,12 @@ ORDERED_OBJS += \
 "./console.obj" \
 "./control.obj" \
 "./main.obj" \
+"./sine_table.obj" \
 "./tm4c123ge6pm_startup_ccs.obj" \
 "./util/cmdline.obj" \
 "./util/uartstdio.obj" \
 "./util/ustdlib.obj" \
-"C:/ti/TivaWare_C_Series-2.1.2.111/driverlib/ccs/Debug/driverlib.lib" \
+"C:/ti/ccsv6/eclipse/TIVAWARE_INSTALL/driverlib/ccs/Debug/driverlib.lib" \
 "../tm4c123ge6pm.cmd" \
 $(GEN_CMDS__FLAG) \
 -l"libc.a" \
@@ -159,8 +160,8 @@ BCWattBalance.hex: $(EXE_OUTPUTS)
 # Other Targets
 clean:
 	-$(RM) $(EXE_OUTPUTS__QUOTED)$(BIN_OUTPUTS__QUOTED)
-	-$(RM) "board_init.pp" "console.pp" "control.pp" "main.pp" "tm4c123ge6pm_startup_ccs.pp" "util\cmdline.pp" "util\uartstdio.pp" "util\ustdlib.pp" 
-	-$(RM) "board_init.obj" "console.obj" "control.obj" "main.obj" "tm4c123ge6pm_startup_ccs.obj" "util\cmdline.obj" "util\uartstdio.obj" "util\ustdlib.obj" 
+	-$(RM) "board_init.pp" "console.pp" "control.pp" "main.pp" "sine_table.pp" "tm4c123ge6pm_startup_ccs.pp" "util\cmdline.pp" "util\uartstdio.pp" "util\ustdlib.pp" 
+	-$(RM) "board_init.obj" "console.obj" "control.obj" "main.obj" "sine_table.obj" "tm4c123ge6pm_startup_ccs.obj" "util\cmdline.obj" "util\uartstdio.obj" "util\ustdlib.obj" 
 	-@echo 'Finished clean'
 	-@echo ' '
 

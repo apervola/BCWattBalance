@@ -93,6 +93,7 @@ int main(void){
 	systemInit();
 	board_INIT();
 	initClock();
+	generateSineTable();
 	RUNNING = true;
 	TimerEnable(TIMER0_BASE,TIMER_A);
 
@@ -194,6 +195,7 @@ void clockInterrupt(void)
 	busy=true;
 
 	// TODO: increment through sine table
+	increment();
 
 	busy=false;
 

@@ -82,7 +82,7 @@ void signalPWM(int p){
 	PWMPulseWidthSet(PWM1_BASE, PWM_OUT_0, percent*113.55); //11355 100% Positive ::113.55 multiplication factor for %
 	PWMOutputState(PWM1_BASE, PWM_OUT_0_BIT, true);
 	PWMGenEnable(PWM1_BASE, PWM_GEN_0);
-	UARTprintf("PWM On. Duty Cycle: %d.\n", p);
+	//UARTprintf("PWM On. Duty Cycle: %d.\n", p);
 }
 
 void PWMoff(){

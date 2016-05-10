@@ -14,6 +14,7 @@ C_SRCS += \
 ../console.c \
 ../control.c \
 ../main.c \
+../sine_table.c \
 ../tm4c123ge6pm_startup_ccs.c 
 
 OBJS += \
@@ -21,6 +22,7 @@ OBJS += \
 ./console.obj \
 ./control.obj \
 ./main.obj \
+./sine_table.obj \
 ./tm4c123ge6pm_startup_ccs.obj 
 
 C_DEPS += \
@@ -28,6 +30,7 @@ C_DEPS += \
 ./console.pp \
 ./control.pp \
 ./main.pp \
+./sine_table.pp \
 ./tm4c123ge6pm_startup_ccs.pp 
 
 C_DEPS__QUOTED += \
@@ -35,6 +38,7 @@ C_DEPS__QUOTED += \
 "console.pp" \
 "control.pp" \
 "main.pp" \
+"sine_table.pp" \
 "tm4c123ge6pm_startup_ccs.pp" 
 
 OBJS__QUOTED += \
@@ -42,6 +46,7 @@ OBJS__QUOTED += \
 "console.obj" \
 "control.obj" \
 "main.obj" \
+"sine_table.obj" \
 "tm4c123ge6pm_startup_ccs.obj" 
 
 C_SRCS__QUOTED += \
@@ -49,6 +54,7 @@ C_SRCS__QUOTED += \
 "../console.c" \
 "../control.c" \
 "../main.c" \
+"../sine_table.c" \
 "../tm4c123ge6pm_startup_ccs.c" 
 
 

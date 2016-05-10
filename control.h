@@ -41,4 +41,12 @@ extern void senseRelayDisable();
 
 extern void ConfigureUART();
 
+/*
+ * Declare sine table generation and
+ * traversing functions
+ */
+
+extern void generateSineTable();
+extern void increment();
+
 #endif /* CONTROL_H_ */

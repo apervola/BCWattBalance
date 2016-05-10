@@ -14,6 +14,7 @@ ORDERED_OBJS += \
 "./console.obj" \
 "./control.obj" \
 "./main.obj" \
+"./sine_table.obj" \
 "./tm4c123ge6pm_startup_ccs.obj" \
 "./util/cmdline.obj" \
 "./util/uartstdio.obj" \
@@ -146,7 +147,7 @@ all: BCWattBalance.out
 BCWattBalance.out: $(OBJS) $(CMD_SRCS) $(LIB_SRCS) $(GEN_CMDS)
 	@echo 'Building target: $@'
 	@echo 'Invoking: ARM Linker'
-	"C:/ti/ccsv6/tools/compiler/ti-cgt-arm_5.2.7/bin/armcl" -mv7M4 --code_state=16 --float_support=FPv4SPD16 --abi=eabi -me -g --gcc --define=ccs="ccs" --define=PART_TM4C123GE6PM --diag_wrap=off --display_error_number --diag_warning=225 -z -m"BCWattBalance.map" --heap_size=0 --stack_size=512 -i"C:/ti/ccsv6/tools/compiler/ti-cgt-arm_5.2.7/lib" -i"C:/ti/ccsv6/tools/compiler/ti-cgt-arm_5.2.7/include" --reread_libs --display_error_number --diag_wrap=off --warn_sections --xml_link_info="BCWattBalance_linkInfo.xml" --rom_model -o "BCWattBalance.out" $(ORDERED_OBJS)
+	"C:/ti/ccsv6/tools/compiler/ti-cgt-arm_5.2.7/bin/armcl" -mv7M4 --code_state=16 --float_support=FPv4SPD16 --abi=eabi -me -g --gcc --define=ccs="ccs" --define=PART_TM4C123GE6PM --diag_wrap=off --display_error_number --diag_warning=225 -z -m"BCWattBalance.map" --heap_size=0 --stack_size=1024 -i"C:/ti/ccsv6/tools/compiler/ti-cgt-arm_5.2.7/lib" -i"C:/ti/ccsv6/tools/compiler/ti-cgt-arm_5.2.7/include" --reread_libs --display_error_number --diag_wrap=off --warn_sections --xml_link_info="BCWattBalance_linkInfo.xml" --rom_model -o "BCWattBalance.out" $(ORDERED_OBJS)
 	@echo 'Finished building target: $@'
 	@echo ' '
 
@@ -159,8 +160,8 @@ BCWattBalance.hex: $(EXE_OUTPUTS)
 # Other Targets
 clean:
 	-$(RM) $(EXE_OUTPUTS__QUOTED)$(BIN_OUTPUTS__QUOTED)
-	-$(RM) "board_init.pp" "console.pp" "control.pp" "main.pp" "tm4c123ge6pm_startup_ccs.pp" "util\cmdline.pp" "util\uartstdio.pp" "util\ustdlib.pp" 
-	-$(RM) "board_init.obj" "console.obj" "control.obj" "main.obj" "tm4c123ge6pm_startup_ccs.obj" "util\cmdline.obj" "util\uartstdio.obj" "util\ustdlib.obj" 
+	-$(RM) "board_init.pp" "console.pp" "control.pp" "main.pp" "sine_table.pp" "tm4c123ge6pm_startup_ccs.pp" "util\cmdline.pp" "util\uartstdio.pp" "util\ustdlib.pp" 
+	-$(RM) "board_init.obj" "console.obj" "control.obj" "main.obj" "sine_table.obj" "tm4c123ge6pm_startup_ccs.obj" "util\cmdline.obj" "util\uartstdio.obj" "util\ustdlib.obj" 
 	-@echo 'Finished clean'
 	-@echo ' '
 
