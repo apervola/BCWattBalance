@@ -68,16 +68,29 @@
 #include "driverlib/interrupt.h"
 #include "driverlib/timer.h"
 
+/*
+ * Flag to stop timer0
+ */
 static int RUNNING;
-
-void initClock(void);
 
 /*
  * Input buffer for the command line interpreter.
  */
-
 static char g_cInput[CONSOLE_BUF_SIZE];
 
+/*
+ * function declaration
+ */
+void initClock(void);
+
+/*----------------------------------------------------------------------------*
+*                                                                             *
+*    Message handler. Initially uses UARTPrintf. USB printf can be used if    *
+*    timing or interrupt problems appear.                                     *
+*                                                                             *
+*                                                                             *
+*-----------------------------------------------------------------------------*
+*/
 void messages(char * mystring)
 {
 

@@ -10,7 +10,7 @@
 #define PWM_FREQUENCY 55
 
 /*
- * Declare Board Initialization Functoin
+ * Declare Board Initialization Function
  */
 
 extern void board_INIT();
