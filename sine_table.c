@@ -35,7 +35,7 @@ void generateSineTable(void) {
 void increment(void)
 {
 	//int percent = ((*p) / HALF_PI) * 100;
-	int percent = (*sinePointer) * 100;
+	int percent = ((*sinePointer)/HALF_PI) * 100;
 
 	switch(quadrant)
 	{
