@@ -3,6 +3,32 @@
  * Console function declarations
  * Command definitions
  *
+ * Command Line Control Console
+ *
+ * Usable through CCS or by serial connection.
+ *
+ * On a Windows Machine, download and install puTTY
+ * Find the virtual com port assigned to your USB ports
+ * Select serial line in puTTY and enter the com port
+ * Enter speed as 115200 (Will not work otherwise)
+ * Plug in the Tiva Board and establish connection.
+ *
+ * A detailed tutorial is available in the Tiva Student Lab Manual
+ *
+ * There exists a puTTY for Fedora Machines that will work the same way.
+ *
+ * There exists a few serial terminal emulators for Debian/Ubuntu
+ * that do the same job, but none were tested for this project.
+ *
+ * This source makes use of the TI supplied Command Line Parser
+ * It is a little limited, but works well for testing purposes.
+ * This file lists the available functions that can be controlled
+ * via the console/terminal. To add a command, add an entry to the
+ * structure, and make the necessary declarations in console.h and
+ * define the function using the others as a guide. The function must
+ * begin with CMD_ and must return 0;
+ *
+ *
  */
 
 #include <stdlib.h>
@@ -37,10 +63,9 @@ tCmdLineEntry g_psCmdTable[] =
 		{"coilBoff",	   CMD_coilBoff, 		" : Turn off Coil B"	},
 		{"pwmON",          CMD_signalPWM,       " : Activate PWM"		},
 		{"pwmOFF",         CMD_PWMoff,      	" : Stop PWM"			},
-		{"coilRelayOn",    CMD_coilRelayOn,     " : Coil Relay ON"  	},
-		{"coilRelayOff",   CMD_coilRelayOff,    " : Coil Relay OFF"		},
-		{"senseRelayOn",   CMD_senseRelayOn,    " : Sense Relay ON"		},
-		{"senseRelayOff",  CMD_senseRelayOff,   " : Sense Relay OFF"	},
+		{"pwmFrequency",   CMD_PWMfrequency,    " : Change PWM Freq."   },
+		{"relayOn",    	   CMD_relayOn,	        " : Coil Relay ON"  	},
+		{"relayNormal",	   CMD_relayNormal,     " : Coil Relay OFF"		},
 		{"help",       	   CMD_help,       		" : Help Table"			},
 		{"shutdown",       CMD_shutdown,       	" : Shutdown"			},
 		{ 0, 0, 0 }
@@ -48,7 +73,8 @@ tCmdLineEntry g_psCmdTable[] =
 
 /*
  * Command: help
- * Print the help strings for all commands.
+ * Print the help strings for all commands using the structure
+ *
  */
 
 int CMD_help(int argc, char **argv){
@@ -152,8 +178,6 @@ int CMD_shutdown(int argc, char **argv){
 	disableCoilA();
 	disableCoilB();
 	PWMoff();
-	coilRelayDisable();
-	senseRelayDisable();
 	UARTprintf("All outputs disabled. \n>");
 
 	return 0;
@@ -161,7 +185,7 @@ int CMD_shutdown(int argc, char **argv){
 
 int CMD_signalPWM(int argc, char **argv){
 
-	UARTprintf("Argument [1][0] is: %s\n>", argv[1]);
+	//UARTprintf("Argument [1][0] is: %s\n>", argv[1]);
 	int percent = atoi(argv[1]);
 	UARTprintf("Percent is: %d\n>", percent);
 	signalPWM(percent);
@@ -178,34 +202,25 @@ int CMD_PWMoff(int argc, char **argv){
 	return 0;
 }
 
-int CMD_coilRelayOn(int argc, char **argv){
+int CMD_PWMfrequency(int argc, char **argv){
 
-	coilRelayEnable();
+	int frequency = atoi(argv[1]);
+	PWMfrequency(frequency);
+
+	return 0;
+}
+
+int CMD_relayOn(int argc, char **argv){
+
+	relayEnable();
 	UARTprintf("\n>");
 
 	return 0;
 }
 
-int CMD_coilRelayOff(int argc, char **argv){
+int CMD_relayNormal(int argc, char **argv){
 
-	coilRelayDisable();
-	UARTprintf("\n>");
-
-	return 0;
-}
-
-int CMD_senseRelayOn(int argc, char **argv){
-
-	senseRelayEnable();
-	UARTprintf("\n>");
-
-	return 0;
-
-}
-
-int CMD_senseRelayOff(int argc, char **argv){
-
-	senseRelayDisable();
+	relayNormal();
 	UARTprintf("\n>");
 
 	return 0;

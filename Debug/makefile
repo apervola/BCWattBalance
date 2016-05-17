@@ -128,32 +128,32 @@ endif
 
 # Add inputs and outputs from these tool invocations to the build variables 
 EXE_OUTPUTS += \
-BCWattBalance.out \
+BCWattBalance-Rev1.out \
 
 EXE_OUTPUTS__QUOTED += \
-"BCWattBalance.out" \
+"BCWattBalance-Rev1.out" \
 
 BIN_OUTPUTS += \
-BCWattBalance.hex \
+BCWattBalance-Rev1.hex \
 
 BIN_OUTPUTS__QUOTED += \
-"BCWattBalance.hex" \
+"BCWattBalance-Rev1.hex" \
 
 
 # All Target
-all: BCWattBalance.out
+all: BCWattBalance-Rev1.out
 
 # Tool invocations
-BCWattBalance.out: $(OBJS) $(CMD_SRCS) $(LIB_SRCS) $(GEN_CMDS)
+BCWattBalance-Rev1.out: $(OBJS) $(CMD_SRCS) $(LIB_SRCS) $(GEN_CMDS)
 	@echo 'Building target: $@'
 	@echo 'Invoking: ARM Linker'
-	"C:/ti/ccsv6/tools/compiler/ti-cgt-arm_5.2.7/bin/armcl" -mv7M4 --code_state=16 --float_support=FPv4SPD16 --abi=eabi -me -g --gcc --define=ccs="ccs" --define=PART_TM4C123GE6PM --diag_wrap=off --display_error_number --diag_warning=225 -z -m"BCWattBalance.map" --heap_size=0 --stack_size=1024 -i"C:/ti/ccsv6/tools/compiler/ti-cgt-arm_5.2.7/lib" -i"C:/ti/ccsv6/tools/compiler/ti-cgt-arm_5.2.7/include" --reread_libs --display_error_number --diag_wrap=off --warn_sections --xml_link_info="BCWattBalance_linkInfo.xml" --rom_model -o "BCWattBalance.out" $(ORDERED_OBJS)
+	"C:/ti/ccsv6/tools/compiler/ti-cgt-arm_5.2.7/bin/armcl" -mv7M4 --code_state=16 --float_support=FPv4SPD16 --abi=eabi -me -g --gcc --define=ccs="ccs" --define=PART_TM4C123GE6PM --diag_wrap=off --display_error_number --diag_warning=225 -z -m"BCWattBalance-Rev1.map" --heap_size=0 --stack_size=512 -i"C:/ti/ccsv6/tools/compiler/ti-cgt-arm_5.2.7/lib" -i"C:/ti/ccsv6/tools/compiler/ti-cgt-arm_5.2.7/include" --reread_libs --display_error_number --diag_wrap=off --warn_sections --xml_link_info="BCWattBalance-Rev1_linkInfo.xml" --rom_model -o "BCWattBalance-Rev1.out" $(ORDERED_OBJS)
 	@echo 'Finished building target: $@'
 	@echo ' '
 
-BCWattBalance.hex: $(EXE_OUTPUTS)
+BCWattBalance-Rev1.hex: $(EXE_OUTPUTS)
 	@echo 'Invoking: ARM Hex Utility'
-	"C:/ti/ccsv6/tools/compiler/ti-cgt-arm_5.2.7/bin/armhex"  -o "BCWattBalance.hex" $(EXE_OUTPUTS__QUOTED)
+	"C:/ti/ccsv6/tools/compiler/ti-cgt-arm_5.2.7/bin/armhex"  -o "BCWattBalance-Rev1.hex" $(EXE_OUTPUTS__QUOTED)
 	@echo 'Finished building: $@'
 	@echo ' '
 

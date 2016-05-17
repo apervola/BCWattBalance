@@ -7,7 +7,7 @@
 #ifndef CONTROL_H_
 #define CONTROL_H_
 
-#define PWM_FREQUENCY 55
+#define PWM_FREQUENCY 999 //default PWM Frequency
 
 /*
  * Declare Board Initialization Function
@@ -17,7 +17,7 @@ extern void board_INIT();
 extern void systemInit();
 
 /*
- * Declare Laser Control Functions
+ * Declare Laser Control, PWM Control, and Relay Control Functions
  */
 
 extern void disableLaserA();
@@ -30,10 +30,10 @@ extern void enableCoilA();
 extern void enableCoilB();
 extern void signalPWM();
 extern void PWMoff();
-extern void coilRelayEnable();
-extern void coilRelayDisable();
-extern void senseRelayEnable();
-extern void senseRelayDisable();
+extern void PWMfrequency();
+extern void relayEnable();
+extern void relayNormal();
+
 
 /*
  * Declare UART Initialization Function

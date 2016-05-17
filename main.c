@@ -27,6 +27,9 @@
 	electromagnetic coils, and measurement of electrical signals via their
 	respective electronic circuits.
 
+	*** You must add a symbolic link to driverlib.lib in the project directory in order for it to build/work properly. ***
+
+
  ***********
 
 	Header Files:
@@ -37,15 +40,19 @@
 					board_init.c
 					control.c
 					console.c
+					sine_table.c
 
  ***********
 
- 	main.c:
+ 	main.c
 
-	A) Calls initialization routine for board peripherals.
-	B) Infinite Loop for console I/O
-	C) TODO: Analog Measurements ?
-	D) TODO: Measurements and Computations ?
+ 	Calls initialization routines for the system control components
+ 	Calls initialization routines for board components
+ 	Calls initialization routines for CPU clock
+ 	Calls initialization routines for the sine table generation for the PWM output
+ 	Enables the interrupts and timers for controls
+ 	Initiates serial/UART communications with host machine and infinite loop manages command line parser
+
 
  ******************************************************************************/
 
@@ -101,7 +108,7 @@ void messages(char * mystring)
 
 int main(void){
 
-	int32_t commandStatus;
+	int32_t commandStatus;  //Command Line Parser Status Flag (go/no go)
 
 	systemInit();
 	board_INIT();

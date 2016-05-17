@@ -28,13 +28,13 @@
  *******************************************************************************/
 
 void systemInit(){
-	
+
 	/*
 	 * CPU clock speed initialization
 	 */
 	// Setup the system clock to run at 80 Mhz from PLL with crystal reference
 	SysCtlClockSet(SYSCTL_SYSDIV_2_5|SYSCTL_USE_PLL|SYSCTL_XTAL_16MHZ|SYSCTL_OSC_MAIN);
-	
+
 	/*
 	 * UART initialization
 	 */
@@ -64,14 +64,12 @@ void systemInit(){
 
 void board_INIT(){
 
-	volatile uint32_t ui32Period;
-	volatile uint32_t ui32PWMClock;
 
 	/*
-	 * Setup PWM Clock to run at 625KHZ
+	 * Setup PWM Clock to run at 625KHZ by dividing the system clock (80 mhz) by 32
 	 */
 
-	SysCtlPWMClockSet(SYSCTL_PWMDIV_64);
+	SysCtlPWMClockSet(SYSCTL_PWMDIV_32);
 
 	/*
 	 * Enable and configure GPIO port E for coil driver control
@@ -118,18 +116,11 @@ void board_INIT(){
 
 	GPIOPinTypeGPIOOutput(GPIO_PORTE_BASE, GPIO_PIN_4 | GPIO_PIN_5);
 
-	/*
-	 * Assure initial relay state is normal
-	 *
-	 */
-
-	coilRelayDisable();
-	senseRelayDisable();
 
 	UARTprintf("\n>");
 
 	/*
-	 * Configure PWM Pins
+	 * Configure PWM Pins for Coil Output
 	 */
 
 	GPIOPinTypePWM(GPIO_PORTD_BASE, GPIO_PIN_0);
@@ -139,10 +130,8 @@ void board_INIT(){
 	 * Configure PWM Output Configuration
 	 */
 
-	ui32PWMClock = SysCtlClockGet() / 64; //625khz
-	ui32Period = (ui32PWMClock / PWM_FREQUENCY) - 1;
 	PWMGenConfigure(PWM1_BASE, PWM_GEN_0, PWM_GEN_MODE_DOWN);
-	PWMGenPeriodSet(PWM1_BASE, PWM_GEN_0, ui32Period);
+	PWMGenPeriodSet(PWM1_BASE, PWM_GEN_0, PWM_FREQUENCY);
 	PWMPulseWidthSet(PWM1_BASE, PWM_OUT_0, 0);
 	PWMOutputState(PWM1_BASE, PWM_OUT_0_BIT, false);
 	PWMGenEnable(PWM1_BASE, PWM_GEN_0);

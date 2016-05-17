@@ -1,0 +1,1 @@
+"./board_init.obj" "./console.obj" "./control.obj" "./main.obj" "./sine_table.obj" "./tm4c123ge6pm_startup_ccs.obj" "./util/cmdline.obj" "./util/uartstdio.obj" "./util/ustdlib.obj" "C:/ti/TivaWare_C_Series-2.1.2.111/driverlib/ccs/Debug/driverlib.lib" "../tm4c123ge6pm.cmd" -l"libc.a" 
